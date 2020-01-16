@@ -89,7 +89,7 @@ public class Generator {
     }
 
     public String generateRandom(){
-        return generate(random.nextInt(4));
+        return generate(random.nextInt(400)/100);
     }
 
     private String getNounAdj(boolean noun_first){
