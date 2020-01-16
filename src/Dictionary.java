@@ -43,30 +43,30 @@ public class Dictionary {
     public boolean add(int choice, String word){
         switch (choice){
             case 1:
-                if(verbs.contains(word)) return true;
+                if(verbs.contains(word)) return false;
                 verbs.add(word);
                 dict.put("verbi", verbs); break;
             case 2:
-                if(f_noun.contains(word)) return true;
+                if(f_noun.contains(word)) return false;
                 f_noun.add(word);
                 dict.put("sostantiviFemminili", f_noun); break;
             case 3:
-                if(m_noun.contains(word)) return true;
+                if(m_noun.contains(word)) return false;
                 m_noun.add(word);
                 dict.put("sostantiviMaschili", m_noun); break;
             case 4:
-                if(f_adj.contains(word)) return true;
+                if(f_adj.contains(word)) return false;
                 f_adj.add(word);
                 dict.put("aggettiviFemminili", f_adj); break;
             case 5:
-                if(m_adj.contains(word)) return true;
+                if(m_adj.contains(word)) return false;
                 m_adj.add(word);
                 dict.put("aggettiviMaschili", m_adj); break;
         }
-        return false;
+        return save();
     }
 
-    public boolean save(){
+    private boolean save(){
         try (FileWriter file = new FileWriter(dir)) {
             file.write(dict.toJSONString());
             return true;
@@ -74,6 +74,14 @@ public class Dictionary {
             e.printStackTrace();
             return false;
         }
+    }
+
+    public boolean contains(String word) {
+        if(verbs.contains(word)) return true;
+        if(f_noun.contains(word)) return true;
+        if(m_noun.contains(word)) return true;
+        if(f_adj.contains(word)) return true;
+        return m_adj.contains(word);
     }
 
     public String getVerb(){

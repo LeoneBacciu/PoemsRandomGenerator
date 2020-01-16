@@ -1,11 +1,14 @@
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class MainGenerator {
 
+    private static Scanner in = new Scanner(System.in);
+
     public static void main(String[] args){
 
         Generator generator = new Generator();
-        Scanner in = new Scanner(System.in);
+
         boolean exit = false;
         while (!exit){
             System.out.println();
@@ -13,19 +16,26 @@ public class MainGenerator {
             System.out.println();
             int choice = 0;
             do {
-                choice = in.nextInt();
-            }while (choice<1 || choice>4);
+                try {
+                    choice = in.nextInt();
+                }catch (InputMismatchException ignored){
+                    in.nextLine();
+                }
+            }while (choice<1 || choice>5);
             switch (choice){
                 case 1:
-                    generator.generatePoem(5);
+                    generator.generatePoem();
                     break;
                 case 2:
                     generator.add();
                     break;
                 case 3:
-                    generator.isPresent(true);
+                    generator.isPresent();
                     break;
                 case 4:
+                    generator.setLines();
+                    break;
+                case 5:
                     exit=true;
                     break;
             }
